@@ -6,14 +6,23 @@ body {
     background: #0a0a0a;
     color: #ffffff;
     font-size: 16px;
-    font-family: "Meiryo";
+    font-family:"Meiryo";
 }
-input,
-textarea { font-family: "Meiryo" }
-.clear { clear: both }
-.right { float: right }
-.hide { display: none }
-.transparent { opacity: 0.8 }
+input, textarea {
+    font-family:"Meiryo"
+}
+.clear {
+    clear: both
+}
+.right {
+    float: right
+}
+.hide {
+    display: none
+}
+.transparent {
+    opacity: 0.8
+}
 div#body {
     position: absolute;
     width: 620px;
@@ -36,7 +45,8 @@ div.header h2 {
     font: normal 12px arial, sans-serif;
     height: 24px;
     margin-right: 6px;
-    padding-right: 18px; /* sliding doors padding */
+    padding-right: 18px;
+    /* sliding doors padding */
     text-decoration: none;
 }
 .button input {
@@ -51,11 +61,13 @@ div.header h2 {
 .button:active {
     background-position: bottom right;
     color: #000;
-    outline: none; /* hide dotted outline in Firefox */
+    outline: none;
+    /* hide dotted outline in Firefox */
 }
 .button:active input {
     background-position: bottom left;
-    padding: 6px 0 4px 18px; /* push text down 1px */
+    padding: 6px 0 4px 18px;
+    /* push text down 1px */
 }
 div.message_box {
     position: fixed;
@@ -100,22 +112,32 @@ ul.menu li input {
     border: 1px gray solid;
     padding: 0;
 }
-ul.menu li.setting,
-ul.menu li.sound,
-ul.menu li.member {
+ul.menu li.setting, ul.menu li.sound, ul.menu li.member {
     width: 15px;
     display: none;
 }
-ul.menu li.setting { background: transparent url('setting.png') left top no-repeat }
-ul.menu li.sound_on { background: transparent url('sound_on.png') left top no-repeat }
-ul.menu li.sound_off { background: transparent url('sound_off.png') left top no-repeat }
-ul.menu li.member_on { background: transparent url('member_on.png') left top no-repeat }
-ul.menu li.member_off { background: transparent url('member_off.png') left top no-repeat }
+ul.menu li.setting {
+    background: transparent url('setting.png') left top no-repeat
+}
+ul.menu li.sound_on {
+    background: transparent url('sound_on.png') left top no-repeat
+}
+ul.menu li.sound_off {
+    background: transparent url('sound_off.png') left top no-repeat
+}
+ul.menu li.member_on {
+    background: transparent url('member_on.png') left top no-repeat
+}
+ul.menu li.member_off {
+    background: transparent url('member_off.png') left top no-repeat
+}
 #setting_pannel {
     clear: both;
     padding: 20px 0;
 }
-#setting_pannel ul#user_list { list-style: none }
+#setting_pannel ul#user_list {
+    list-style: none
+}
 #setting_pannel ul#user_list li {
     min-height: 20px;
     width: 80px;
@@ -127,8 +149,12 @@ ul.menu li.member_off { background: transparent url('member_off.png') left top n
     border: 2px solid transparent;
     margin: 10px;
 }
-#setting_pannel ul#user_list li.select { border: 2px solid #ff6600 }
-#message { text-align: center }
+#setting_pannel ul#user_list li.select {
+    border: 2px solid #ff6600
+}
+#message {
+    text-align: center
+}
 #message textarea {
     clear: both;
     display: block;
@@ -153,12 +179,14 @@ ul.menu li.member_off { background: transparent url('member_off.png') left top n
     height: 25px;
     width: 200px;
     font-size: 12px;
-    font-family: "Meiryo";
+    font-family:"Meiryo";
     color: #201e1a;
     font-weight: bold;
     background: transparent url('submit.gif') 0px 0px no-repeat;
 }
-#message div.submit input:active { background: transparent url('submit.gif') 0px 1px no-repeat }
+#message div.submit input:active {
+    background: transparent url('submit.gif') 0px 1px no-repeat
+}
 #talks {
     margin-top: 150px;
     _margin-top: 15px;
@@ -183,7 +211,9 @@ ul.menu li.member_off { background: transparent url('member_off.png') left top n
     line-height: 20px;
     float: left;
 }
-#talks dl.talk dt.select { border: 2px solid #ff6600 }
+#talks dl.talk dt.select {
+    border: 2px solid #ff6600
+}
 #talks dl.talk dd {
     display: inline-block;
     max-width: 510px;
@@ -197,29 +227,61 @@ ul.menu li.member_off { background: transparent url('member_off.png') left top n
     -moz-border-radius: 13px;
     -webkit-border-radius: 13px;
     background: #000;
-    font: 1em "Meiryo", sans-serif;
+    font: 1em"Meiryo", sans-serif;
     letter-spacing: 3px;
     color: white;
     -position: relative;
     word-wrap: break-word;
     height: auto;
 }
-#talks dl.setton dt { background: transparent url('icon_setton.png') no-repeat center top }
-#talks dl.setton dd div.bubble p.body { background: transparent url('gray.png') repeat-x left center }
-#talks dl.tanaka dt { background: transparent url('icon_tanaka.png') no-repeat center top }
-#talks dl.tanaka dd div.bubble p.body { background: transparent url('blue.png') repeat-x left center }
-#talks dl.kanra dt { background: transparent url('icon_kanra.png') no-repeat center top }
-#talks dl.kanra dd div.bubble p.body { background: transparent url('orange.png') repeat-x left center }
-#talks dl.zaika dt { background: transparent url('icon_zaika.png') no-repeat center top }
-#talks dl.zawa dd div.bubble p.body { background: transparent url('green.png') repeat-x left center }
-#talks dl.zawa dt { background: transparent url('icon_zawa.png') no-repeat center top }
-#talks dl.zaika dd div.bubble p.body { background: transparent url('red.png') repeat-x left center }
-#talks dl.gg dt { background: transparent url('icon_gg.png') no-repeat center top }
-#talks dl.gg dd div.bubble p.body { background: transparent url('pink.png') repeat-x left center }
-#talks dl.admin dt { background: transparent url('icon_admin.png') no-repeat center top }
-#talks dl.admin dd div.bubble p.body { background: transparent url('orange.png') repeat-x left center }
-#login { min-height: 100px }
-#login .language { text-align: right }
+#talks dl.setton dt {
+    background: transparent url('icon_setton.png') no-repeat center top
+}
+#talks dl.setton dd div.bubble p.body {
+    background: transparent url('gray.png') repeat-x left center
+}
+#talks dl.tanaka dt {
+    background: transparent url('icon_tanaka.png') no-repeat center top
+}
+#talks dl.tanaka dd div.bubble p.body {
+    background: transparent url('blue.png') repeat-x left center
+}
+#talks dl.kanra dt {
+    background: transparent url('icon_kanra.png') no-repeat center top
+}
+#talks dl.kanra dd div.bubble p.body {
+    background: transparent url('orange.png') repeat-x left center
+}
+#talks dl.zaika dt {
+    background: transparent url('icon_zaika.png') no-repeat center top
+}
+#talks dl.zawa dd div.bubble p.body {
+    background: transparent url('green.png') repeat-x left center
+}
+#talks dl.zawa dt {
+    background: transparent url('icon_zawa.png') no-repeat center top
+}
+#talks dl.zaika dd div.bubble p.body {
+    background: transparent url('red.png') repeat-x left center
+}
+#talks dl.gg dt {
+    background: transparent url('icon_gg.png') no-repeat center top
+}
+#talks dl.gg dd div.bubble p.body {
+    background: transparent url('pink.png') repeat-x left center
+}
+#talks dl.admin dt {
+    background: transparent url('icon_admin.png') no-repeat center top
+}
+#talks dl.admin dd div.bubble p.body {
+    background: transparent url('orange.png') repeat-x left center
+}
+#login {
+    min-height: 100px
+}
+#login .language {
+    text-align: right
+}
 #login .field {
     text-align: center;
     width: 280px;
@@ -263,7 +325,9 @@ ul.icons li {
     margin: 0 5px;
     text-align: center;
 }
-#create_room { float: right }
+#create_room {
+    float: right
+}
 ul#profile {
     float: left;
     width: 612px;
@@ -314,12 +378,20 @@ ul.rooms li.name {
     width: 180px;
     text-align: left;
 }
-ul.rooms li.creater { width: 180px }
-ul.rooms li.member { width: 70px }
-ul.rooms li.login { text-align: left }
+ul.rooms li.creater {
+    width: 180px
+}
+ul.rooms li.member {
+    width: 70px
+}
+ul.rooms li.login {
+    text-align: left
+}
 ul#members {
     list-style-type: none;
     text-align: left;
     clear: both;
 }
-ul#members li { display: inline }
+ul#members li {
+    display: inline
+}
