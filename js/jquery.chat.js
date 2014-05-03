@@ -22,7 +22,6 @@ jQuery(function($)
 	var isLoading    = false;
 	var isShowingSettinPannel = false;
 
-	var isUseAnime   = true;
 	var isUseSound   = true;
 	var isShowMember = false;
 
@@ -95,11 +94,10 @@ jQuery(function($)
 		iconElement.click(addUserNameToTextarea);
 		menuElement.find("li.sound").click(toggleSound);
 		menuElement.find("li.member").click(toggleMember);
-		menuElement.find("li.animation").click(toggleAnimation);
 		menuElement.find("li.setting").click(toggleSettingPannel);
 		settingPannelElement.find("input[name=save]").click(changeRoomName);
 		settingPannelElement.find("input[name=handover]").click(handoverHost);
-		settingPannelElement.find("input[name=ban]").click(banUser);
+		settingPannelElement.find("input[name=kick]").click(kickUser);
 	}
 
 	var submitMessage = function()
@@ -301,13 +299,13 @@ jQuery(function($)
 						if ( $(this).hasClass('select') )
 						{
 							userListElement.find("li").removeClass('select');
-							settingPannelElement.find("input[name=handover], input[name=ban]").attr('disabled', 'disabled');
+							settingPannelElement.find("input[name=handover], input[name=kick]").attr('disabled', 'disabled');
 						}
 						else
 						{
 							userListElement.find("li").removeClass('select');
 							$(this).addClass('select');
-							settingPannelElement.find("input[name=handover], input[name=ban]").removeAttr('disabled');
+							settingPannelElement.find("input[name=handover], input[name=kick]").removeAttr('disabled');
 						}
 					}
 				);
@@ -363,19 +361,9 @@ jQuery(function($)
 	{
 		var thisBobble = $(".bubble .body:first");
 		var thisBobblePrent = thisBobble.parent();
-		var oldWidth  = thisBobble.width()+'px';
-		var oldHeight = thisBobble.height()+'px';
-		var newWidth  = ( 5 + thisBobble.width() ) +'px';
-		var newHeight = ( 5 + thisBobble.height() ) +'px';
+		var Width  = ((thisBobble.width() <= 465) ? 3 + thisBobble.width() : 465)+'px';
 
 		ringSound();
-
-		if ( !isUseAnime )
-		{
-			$.each(thisBobblePrent, addTail);
-			$.each(thisBobble, roundBaloon);
-			return;
-		}
 
 		$("dl.talk:first dt").click(addUserNameToTextarea);
 
@@ -384,51 +372,21 @@ jQuery(function($)
 			$.each(thisBobblePrent, addTail);
 
 			thisBobblePrent.css({
-				'opacity' : '0',
-				'width': '0px',
-				'height': '0px'
-			});
-			thisBobblePrent.animate({
 				'opacity' : 1,
 				'width': '22px',
 				'height': '16px'
-			}, 200, "easeInQuart");
+			});
 		}
 
 		thisBobble.css({
-			'border-width' : '0px',
-			'font-size' : '0px',
-			'text-indent' : '-100000px',
-			'opacity' : '0',
-			'width': '0px',
-			'height': '0px'
+			'border-width' : '4px',
+			'font-size' : '1em',
+			'text-indent' : 0,
+			'opacity' : 1,
+			'width': Width,
+			'height': 'auto',
+			'word-wrap': 'break-word'
 		});
-
-		thisBobble.animate({ 
-			'fontSize': "1em", 
-			'borderWidth': "4px",
-			'width': newWidth,
-			'height': newHeight,
-			'opacity': 1,
-			'textIndent': 0
-		}, 200, "easeInQuart", 
-			function()
-			{
-				$.each(thisBobble, roundBaloon);
-
-				if ( isIE() )
-				{
-					thisBobblePrent.animate({
-						'width': thisBobblePrent.width() - 5 +"px"
-					}, 100);
-				}
-
-				thisBobble.animate({
-					'width': oldWidth,
-					'height': oldHeight
-				}, 100);
-			}
-		);
 	}
 
 	var ringSound = function()
@@ -571,7 +529,10 @@ jQuery(function($)
 
 		top = top + 1;
 
-		$(this).find(".body").css({"margin": "0 0 0 15px"});
+		$(this).find(".body").css({
+			"margin": "0 0 0 15px",
+			'width': ($(this).find(".body").width() < 465) ? 3 + $(this).find(".body").width() : 465
+		});
 
 		$(this).prepend('<div><div></div></div>')
 		            .css({"margin":"-16px 0 0 0"});
@@ -597,16 +558,13 @@ jQuery(function($)
 		if ( isIE() )
 		{
 			isUseSound = false;
-			isUseAnime = false;
 		}
 
 		menuElement.find("li:hidden:not(.setting)").show();
 		var soundClass  = ( isUseSound ) ? "sound_on" : "sound_off" ;
 		var memberClass = ( isShowMember ) ? "member_on" : "member_off" ;
-		var animationClass = ( isUseAnime ) ? "animation_on" : "animation_off" ;
 		menuElement.find("li.sound").addClass(soundClass);
 		menuElement.find("li.member").addClass(memberClass);
-		menuElement.find("li.animation").addClass(animationClass);
 	}
 
 	var toggleSound = function()
@@ -643,25 +601,9 @@ jQuery(function($)
 		}
 	}
 
-	var toggleAnimation = function()
-	{
-		if ( isUseAnime )
-		{
-			$(this).removeClass("animation_on");
-			$(this).addClass("animation_off");
-			isUseAnime = false;
-		}
-		else
-		{
-			$(this).removeClass("animation_off");
-			$(this).addClass("animation_on");
-			isUseAnime = true;
-		}
-	}
-
 	var toggleSettingPannel = function()
 	{
-		settingPannelElement.find("input[name=handover], input[name=ban]").attr('disabled', 'disabled');
+		settingPannelElement.find("input[name=handover], input[name=kick]").attr('disabled', 'disabled');
 		buttonElement.slideToggle();
 		textareaElement.slideToggle();
 		settingPannelElement.slideToggle();
@@ -708,13 +650,13 @@ jQuery(function($)
 		}
 	}
 
-	var banUser = function()
+	var kickUser = function()
 	{
 		var id = userListElement.find("li.select").attr("name");
 
-		if ( confirm(t("Are you sure to ban this user?")) )
+		if ( confirm(t("Are you sure to kick this user?")) )
 		{
-			$.post(postAction, {'ban_user':id}, 
+			$.post(postAction, {'kick_user':id}, 
 				function(result)
 				{
 					alert(result);

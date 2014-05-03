@@ -78,9 +78,9 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 		{
 			$this->_handoverHostRight();
 		}
-		elseif ( isset($_POST['ban_user']) )
+		elseif ( isset($_POST['kick_user']) )
 		{
-			$this->_banUser();
+			$this->_kickUser();
 		}
 
 		$this->_default();
@@ -371,14 +371,14 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 		die(t("Gave host rights to {1}.", $nextHost));
 	}
 
-	protected function _banUser()
+	protected function _kickUser()
 	{
 		if ( !$this->_isHost() )
 		{
 			die(t("You are not host."));
 		}
 
-		$userId = Dura::post('ban_user');
+		$userId = Dura::post('kick_user');
 
 		if ( $userId === '' || $this->_isHost($userId) )
 		{
@@ -411,7 +411,7 @@ class Dura_Controller_Room extends Dura_Abstract_Controller
 
 		$this->roomHandler->save($this->id, $this->roomModel);
 
-		die(t("Banned {1}.", $userName));
+		die(t("Kicked {1}.", $userName));
 	}
 
 	protected function _isHost($userId = null)
