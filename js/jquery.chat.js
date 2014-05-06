@@ -238,6 +238,7 @@ jQuery(function($)
 		var message = trim($(this).find("message").text());
 		var icon    = trim($(this).find("icon").text());
 		var time    = trim($(this).find("time").text());
+		var date 	= new Date();
 
 		/*
 		name    = escapeHTML(name);
@@ -255,7 +256,7 @@ jQuery(function($)
 		else if ( uid != userId )
 		{
 			var content = '<dl class="talk '+icon+'" id="'+id+'">';
-			content += '<dt>'+name+'</dt>';
+			content += '<dt><abbr title="'+date.toLocaleTimeString()+'">'+name+'</abbr></dt>';
 			content += '<dd><div class="bubble">';
 			content += '<p class="body">'+message+'</p>';
 			content += '</div></dd></dl>';
@@ -319,9 +320,10 @@ jQuery(function($)
 	{
 		var name    = escapeHTML(userName);
 		var message = escapeHTML(message);
+		var date 	= new Date();
 
 		var content = '<dl class="talk '+userIcon+'" id="'+userId+'">';
-		content += '<dt>'+name+'</dt>';
+		content += '<dt><abbr title="'+date.toLocaleTimeString()+'">'+name+'</abbr></dt>';
 		content += '<dd><div class="bubble">';
 		content += '<p class="body">'+message+'</p>';
 		content += '</div></dd></dl>';
