@@ -22,6 +22,7 @@ jQuery(function($)
 	var isLoading    = false;
 	var isShowingSettinPannel = false;
 
+	var isUseAnime   = true;
 	var isUseSound   = true;
 	var isShowMember = false;
 
@@ -94,6 +95,7 @@ jQuery(function($)
 		iconElement.click(addUserNameToTextarea);
 		menuElement.find("li.sound").click(toggleSound);
 		menuElement.find("li.member").click(toggleMember);
+		menuElement.find("li.animation").click(toggleAnimation);
 		menuElement.find("li.setting").click(toggleSettingPannel);
 		settingPannelElement.find("input[name=save]").click(changeRoomName);
 		settingPannelElement.find("input[name=handover]").click(handoverHost);
@@ -238,7 +240,7 @@ jQuery(function($)
 		var message = trim($(this).find("message").text());
 		var icon    = trim($(this).find("icon").text());
 		var time    = trim($(this).find("time").text());
-		var date 	= new Date();
+		var date	= new Date();
 
 		/*
 		name    = escapeHTML(name);
@@ -363,9 +365,17 @@ jQuery(function($)
 	{
 		var thisBobble = $(".bubble .body:first");
 		var thisBobblePrent = thisBobble.parent();
-		var Width  = ((thisBobble.width() <= 465) ? 3 + thisBobble.width() : 465)+'px';
+		var oldWidth  = ((thisBobble.width() <= 465) ? 3 + thisBobble.width() : 465)+'px';
+		var newWidth  = ( 5 + ((thisBobble.width() <= 465) ? 3 + thisBobble.width() : 465) ) +'px';
 
 		ringSound();
+
+		if ( !isUseAnime )
+		{
+			$.each(thisBobblePrent, addTail);
+			$.each(thisBobble, roundBaloon);
+			return;
+		}
 
 		$("dl.talk:first dt").click(addUserNameToTextarea);
 
@@ -374,21 +384,55 @@ jQuery(function($)
 			$.each(thisBobblePrent, addTail);
 
 			thisBobblePrent.css({
+				'opacity' : '0',
+				'width': '0px',
+				'height': 'auto',
+				'word-wrap': 'break-word'
+			});
+			thisBobblePrent.animate({
 				'opacity' : 1,
 				'width': '22px',
-				'height': '16px'
-			});
+				'height': 'auto',
+				'word-wrap': 'break-word'
+			}, 200, "easeInQuart");
 		}
 
 		thisBobble.css({
-			'border-width' : '4px',
-			'font-size' : '1em',
-			'text-indent' : 0,
-			'opacity' : 1,
-			'width': Width,
+			'border-width' : '0px',
+			'font-size' : '0px',
+			'text-indent' : '-100000px',
+			'opacity' : '0',
+			'width': '0px',
 			'height': 'auto',
 			'word-wrap': 'break-word'
 		});
+
+		thisBobble.animate({ 
+			'fontSize': "1em", 
+			'borderWidth': "4px",
+			'width': newWidth,
+			'height': 'auto',
+			'word-wrap': 'break-word',
+			'opacity': 1,
+			'textIndent': 0
+		}, 200, "easeInQuart", 
+			function()
+			{
+				$.each(thisBobble, roundBaloon);
+
+				if ( isIE() )
+				{
+					thisBobblePrent.animate({
+						'width': ((thisBobblePrent.width() <= 465) ? 3 + thisBobblePrent.width() : 465) - 5 +"px"
+					}, 100);
+				}
+
+				thisBobble.animate({
+					'width': Width,
+					'height': Height
+				}, 100);
+			}
+		);
 	}
 
 	var ringSound = function()
@@ -560,13 +604,16 @@ jQuery(function($)
 		if ( isIE() )
 		{
 			isUseSound = false;
+			isUseAnime = false;
 		}
 
 		menuElement.find("li:hidden:not(.setting)").show();
 		var soundClass  = ( isUseSound ) ? "sound_on" : "sound_off" ;
 		var memberClass = ( isShowMember ) ? "member_on" : "member_off" ;
+		var animationClass = ( isUseAnime ) ? "animation_on" : "animation_off" ;
 		menuElement.find("li.sound").addClass(soundClass);
 		menuElement.find("li.member").addClass(memberClass);
+		menuElement.find("li.animation").addClass(animationClass);
 	}
 
 	var toggleSound = function()
@@ -600,6 +647,22 @@ jQuery(function($)
 			$(this).addClass("member_on");
 			membersElement.slideDown("slow");
 			isShowMember = true;
+		}
+	}
+
+	var toggleAnimation = function()
+	{
+		if ( isUseAnime )
+		{
+			$(this).removeClass("animation_on");
+			$(this).addClass("animation_off");
+			isUseAnime = false;
+		}
+		else
+		{
+			$(this).removeClass("animation_off");
+			$(this).addClass("animation_on");
+			isUseAnime = true;
 		}
 	}
 

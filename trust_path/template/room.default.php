@@ -8,6 +8,7 @@
 <li class="setting">&nbsp;</li>
 <li class="sound">&nbsp;</li>
 <li class="member">&nbsp;</li>
+<li class="animation">&nbsp;</li>
 <li class="logout"><input type="submit" name="logout" value="LOGOUT" /></li>
 <li></li>
 </ul>
