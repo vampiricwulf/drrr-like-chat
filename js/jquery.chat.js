@@ -277,6 +277,16 @@ jQuery(function($)
 		var total = $(data).find("users").length;
 		membersElement.append('<li>('+total+')</li>');
 
+		var headtitle = $("head title");
+		if ( !headtitle.text().match(/^\([0-9]+\)/g) ) 
+		{
+			headtitle.prepend('('+total+') ');
+		}
+		else
+		{
+			headtitle.text(headtitle.text().replace(/^\([0-9]+\)/g,'('+total+')'));
+		}
+
 		var host  = $(data).find("host").text();
 
 		$.each($(data).find("users"), 
